@@ -5,6 +5,7 @@ This is an example REST API built in Laravel, it basically shows a example windf
 Run:
 
 artisan migrate
+
 artisan db:seed
 
 To get started
