@@ -9,7 +9,7 @@ use Tests\TestCase;
 class WindFarmControllerTest extends TestCase
 {
     /* Change this ID to whatever your windfarm is in the database */
-    private $windfarmId = 3;
+    private $windfarmId = 1;
 
     public function test_index_windfarms()
     {
