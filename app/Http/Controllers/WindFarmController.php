@@ -6,13 +6,14 @@ use Illuminate\Http\Request;
 use App\Models\WindFarm;
 use App\Http\Controllers\ApiController as ApiController;
 use Exception;
+use Illuminate\Http\JsonResponse;
 
 class WindFarmController extends ApiController
 {
     /**
      * Show Windfarm
      */
-    public function show(string $id, WindFarm $windfarm)
+    public function show(string $id, WindFarm $windfarm) : JsonResponse
     {
         try {
 
@@ -29,7 +30,7 @@ class WindFarmController extends ApiController
     /**
      * Get All Windfarms
      */
-    public function index(Windfarm $windfarm)
+    public function index(Windfarm $windfarm) : JsonResponse
     {
         return $this->sendResponse($windfarm::all()->toArray(), '');
     }
@@ -37,7 +38,7 @@ class WindFarmController extends ApiController
     /**
      * Get Turbines in this windfarm
      */
-    public function getTurbines(string $id, Windfarm $windfarm)
+    public function getTurbines(string $id, Windfarm $windfarm) : JsonResponse
     {
         try {
 

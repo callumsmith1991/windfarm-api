@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Exception;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 
 class ApiController extends Controller
@@ -10,7 +11,7 @@ class ApiController extends Controller
     protected $statusCode;
     public $exceptionErrorMessage = 'Something went wrong, Please contact Administrator';
 
-    public function sendResponse($result, $message)
+    public function sendResponse($result, $message) : JsonResponse
     {
 
         $response = [
@@ -23,7 +24,7 @@ class ApiController extends Controller
         return response()->json($response, $this->statusCode);
     }
 
-    public function sendError($error, $messages = [], $errorCode = 404)
+    public function sendError($error, $messages = [], $errorCode = 404) : JsonResponse
     {
 
         $response = [
@@ -38,12 +39,12 @@ class ApiController extends Controller
         return response()->json($response, $this->statusCode);
     }
 
-    private function setStatusCode($code) 
+    private function setStatusCode($code) : void
     {
         $this->statusCode = $code;
     }
 
-    protected function checkIfResourceExists(string $id, $model)
+    protected function checkIfResourceExists(string $id, $model) : bool
     {
         if($model instanceof \Illuminate\Database\Eloquent\Model) {
 

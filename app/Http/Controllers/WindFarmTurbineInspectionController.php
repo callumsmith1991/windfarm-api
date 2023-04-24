@@ -6,15 +6,16 @@ use App\Models\WindFarmComponentInspection;
 use Illuminate\Http\Request;
 use App\Models\WindFarmTurbineInspection;
 use Exception;
+use Illuminate\Http\JsonResponse;
 
 class WindFarmTurbineInspectionController extends ApiController
 {
-    public function index(WindFarmTurbineInspection $inspection)
+    public function index(WindFarmTurbineInspection $inspection) : JsonResponse
     {
         return $this->sendResponse($inspection::all()->toArray(), '');
     }
 
-    public function show(string $id, WindFarmTurbineInspection $inspection)
+    public function show(string $id, WindFarmTurbineInspection $inspection) : JsonResponse
     {
         try {
 
@@ -28,7 +29,7 @@ class WindFarmTurbineInspectionController extends ApiController
         }
     }
 
-    public function getComponentInspections(string $id, WindFarmTurbineInspection $inspection)
+    public function getComponentInspections(string $id, WindFarmTurbineInspection $inspection) : JsonResponse
     {
         try {
 
@@ -43,7 +44,7 @@ class WindFarmTurbineInspectionController extends ApiController
         }
     }
 
-    public function getComponentInspection(string $turbineInspectionId, string $componentInspectionId, WindFarmTurbineInspection $turbineInspection, WindFarmComponentInspection $componentInspection)
+    public function getComponentInspection(string $turbineInspectionId, string $componentInspectionId, WindFarmTurbineInspection $turbineInspection, WindFarmComponentInspection $componentInspection) : JsonResponse
     {
         try {
 

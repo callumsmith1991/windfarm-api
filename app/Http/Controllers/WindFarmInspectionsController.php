@@ -5,15 +5,16 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\WindFarmInspection;
 use Exception;
+use Illuminate\Http\JsonResponse;
 
 class WindFarmInspectionsController extends ApiController
 {
-    public function index(WindFarmInspection $inspection)
+    public function index(WindFarmInspection $inspection) : JsonResponse
     {
         return $this->sendResponse($inspection::all()->toArray(), '');
     }
 
-    public function show(string $id, WindFarmInspection $inspection)
+    public function show(string $id, WindFarmInspection $inspection) : JsonResponse
     {
         try {
 
@@ -27,7 +28,7 @@ class WindFarmInspectionsController extends ApiController
         }
     }
 
-    public function getTurbinesInspections(string $id, WindFarmInspection $inspection)
+    public function getTurbinesInspections(string $id, WindFarmInspection $inspection) : JsonResponse
     {
         try {
 
