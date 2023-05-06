@@ -13,6 +13,8 @@ To get started
 
 Paths:
 
+GET: 
+
 /api/windfarm
 /api/windfarm/{id}
 /api/windfarm/{id}/turbines
