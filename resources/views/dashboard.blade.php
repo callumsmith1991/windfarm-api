@@ -11,6 +11,12 @@
                 <div class="p-6 text-gray-900">
                     {{ __("You're logged in!") }}
                 </div>
+                <div class="p-6 text-gray-900">
+                    <form method="POST" action="/token-generate">
+                        <button style="background: black;" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full" type="submit">Generate API Token</button>
+                        @csrf
+                    </form>
+                </div>
             </div>
         </div>
     </div>

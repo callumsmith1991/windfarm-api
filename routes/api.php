@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Auth\AuthController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\WindFarmController;
@@ -22,29 +23,39 @@ use App\Http\Controllers\WindFarmTurbineInspectionController;
 //     return $request->user();
 // });
 
-Route::controller(WindFarmController::class)->group(function () {
-    Route::get('windfarm', 'index');
-    Route::get('windfarm/{id}', 'show');
-    Route::get('windfarm/{id}/turbines', 'getTurbines');
+Route::middleware('auth:sanctum')->group(function () {
+
+    Route::controller(WindFarmController::class)->group(function () {
+        Route::get('windfarm', 'index');
+        Route::get('windfarm/{id}', 'show');
+        Route::get('windfarm/{id}/turbines', 'getTurbines');
+    });
+
+    Route::controller(WindFarmTurbineController::class)->group(function () {
+        Route::get('turbines', 'index');
+        Route::get('turbines/{id}', 'show');
+        Route::get('turbines/{id}/components', 'getTurbineComponents');
+    });
+
+    Route::controller(WindFarmInspectionsController::class)->group(function () {
+        Route::get('inspections', 'index');
+        Route::get('inspections/{id}', 'show');
+        Route::get('inspections/{id}/turbines-inspections', 'getTurbinesInspections');
+    });
+
+    Route::controller(WindFarmTurbineInspectionController::class)->group(function () {
+        Route::get('turbine-inspections', 'index');
+        Route::get('turbine-inspections/{id}', 'show');
+        Route::get('turbine-inspections/{id}/component-inspection', 'getComponentInspections');
+        Route::get('turbine-inspections/{tiid}/component-inspection/{ciid}', 'getComponentInspection');
+    });
+
 });
 
-Route::controller(WindFarmTurbineController::class)->group(function () {
-    Route::get('turbines', 'index');
-    Route::get('turbines/{id}', 'show');
-    Route::get('turbines/{id}/components', 'getTurbineComponents');
-});
-
-Route::controller(WindFarmInspectionsController::class)->group(function () {
-    Route::get('inspections', 'index');
-    Route::get('inspections/{id}', 'show');
-    Route::get('inspections/{id}/turbines-inspections', 'getTurbinesInspections');
-});
-
-Route::controller(WindFarmTurbineInspectionController::class)->group(function () {
-    Route::get('turbine-inspections', 'index');
-    Route::get('turbine-inspections/{id}', 'show');
-    Route::get('turbine-inspections/{id}/component-inspection', 'getComponentInspections');
-    Route::get('turbine-inspections/{tiid}/component-inspection/{ciid}', 'getComponentInspection');
+Route::controller(AuthController::class)->group(function () {
+    Route::post('login', 'login');
+    Route::post('register', 'register');
+    Route::get('logout', 'logout');
 });
 
 Route::fallback(function () {

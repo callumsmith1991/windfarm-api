@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\ProfileUpdateRequest;
+use Illuminate\Database\Eloquent\Relations\MorphMany;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -57,4 +58,31 @@ class ProfileController extends Controller
 
         return Redirect::to('/');
     }
+
+    /**
+     * Generate a API token for user use.
+     */
+     public function tokenGenerate(Request $request) 
+     {
+
+        if(Auth::user()->tokens->first() !== null) {
+
+            $data = [
+                'message' => 'You cannot generate a API token more than once'
+            ];
+
+        } else {
+
+            $user = $request->user();
+
+            $data = [
+                'token' => $user->createToken('AuthToken')->plainTextToken
+            ];
+
+        }
+
+        return view('token', $data);
+        
+     }
+
 }

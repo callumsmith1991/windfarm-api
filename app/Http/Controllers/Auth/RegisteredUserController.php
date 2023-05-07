@@ -40,8 +40,7 @@ class RegisteredUserController extends Controller
         $user = User::create([
             'name' => $request->name,
             'email' => $request->email,
-            'password' => Hash::make($request->password),
-            'api_token' => Str::random(60),
+            'password' => Hash::make($request->password)
         ]);
 
         event(new Registered($user));
@@ -49,5 +48,6 @@ class RegisteredUserController extends Controller
         Auth::login($user);
 
         return redirect(RouteServiceProvider::HOME);
+
     }
 }

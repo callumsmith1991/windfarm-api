@@ -18,6 +18,12 @@ return [
         'passwords' => 'users',
     ],
 
+    'api' => [
+        'driver' => 'sanctum',
+        'provider' => 'users',
+        'hash' => false,
+    ],
+
     /*
     |--------------------------------------------------------------------------
     | Authentication Guards
