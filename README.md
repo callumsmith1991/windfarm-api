@@ -1,19 +1,33 @@
-Windfarm API
+# Windfarm API
 
-This is an example REST API built in Laravel, it basically shows a example windfarm with turbines and their components, as well as inspection listings for each turbine
+## About 
+
+This is an example REST API built in Laravel.
+
+It basically shows a example windfarm with turbines and their components, as well as inspection listings for each turbine
+
+The API uses Laravel sanctum to authenticate requests, with a basic frontend built with Laravel Breeze to allow the ability to generate API tokens for each user.
+
+## Getting Started
 
 Run:
 
-artisan migrate
+configure .env
 
-artisan db:seed
+php artisan migrate
 
-To get started
+php artisan db:seed
 
+Once the application is up and running, on the frontend of the application, register as a user. Then generate the API token in the dashboard to gain access to the API routes
 
-Paths:
+### Postman example
 
-GET: 
+- Include Authorization header "bearer" in your headers and include your token
+- Configure Accept type to be "application/json"
+
+## Paths:
+
+### GET: 
 
 /api/windfarm
 /api/windfarm/{id}
