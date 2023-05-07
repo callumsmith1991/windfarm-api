@@ -29,19 +29,19 @@ Once the application is up and running, on the frontend of the application, regi
 
 ### GET: 
 
-/api/windfarm
-/api/windfarm/{id}
-/api/windfarm/{id}/turbines
+- /api/windfarm
+- /api/windfarm/{id}
+- /api/windfarm/{id}/turbines
 
-/api/turbines
-/api/turbines/{id}
-/api/turbines/{id}/components
+- /api/turbines
+- /api/turbines/{id}
+- /api/turbines/{id}/components
 
-/api/inspections
-/api/inspections/{id}
-/api/inspections/{id}/turbines-inspections
+- /api/inspections
+- /api/inspections/{id}
+- /api/inspections/{id}/turbines-inspections
 
-/api/turbine-inspections
-/api/turbine-inspections/{id}
-/api/turbine-inspections/{id}/component-inspection
-/api/turbine-inspections/{tiid}/component-inspection/{ciid}
+- /api/turbine-inspections
+- /api/turbine-inspections/{id}
+- /api/turbine-inspections/{id}/component-inspection
+- /api/turbine-inspections/{tiid}/component-inspection/{ciid}
