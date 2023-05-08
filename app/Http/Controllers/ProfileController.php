@@ -3,12 +3,16 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\ProfileUpdateRequest;
+use App\Mail\ApiTokenEmail;
+use ErrorException;
+use Exception;
 use Illuminate\Database\Eloquent\Relations\MorphMany;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\View\View;
+use Illuminate\Support\Facades\Mail;
 
 class ProfileController extends Controller
 {
@@ -62,27 +66,35 @@ class ProfileController extends Controller
     /**
      * Generate a API token for user use.
      */
-     public function tokenGenerate(Request $request) 
-     {
+    public function tokenGenerate(Request $request) : View
+    {
 
-        if(Auth::user()->tokens->first() !== null) {
+        $data = array();
 
-            $data = [
-                'message' => 'You cannot generate a API token more than once'
-            ];
+        if (Auth::user()->tokens->first() !== null) {
+
+            $data['message'] = 'You cannot generate a API token more than once';
 
         } else {
 
-            $user = $request->user();
+            try {
 
-            $data = [
-                'token' => $user->createToken('AuthToken')->plainTextToken
-            ];
+                $user = $request->user();
+
+                $token = $user->createToken('AuthToken')->plainTextToken;
+
+                Mail::to(Auth::user()->email)->send(new ApiTokenEmail(['token' => $token]));
+
+                $data['token'] = $token;
+
+            } catch (Exception $e) {
+
+                $data['message'] = $e->getMessage();
+
+            } 
 
         }
 
         return view('token', $data);
-        
-     }
-
+    }
 }
