@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\ProfileUpdateRequest;
+use App\Jobs\SendApiTokenEmail;
 use App\Mail\ApiTokenEmail;
 use ErrorException;
 use Exception;
@@ -83,7 +84,7 @@ class ProfileController extends Controller
 
                 $token = $user->createToken('AuthToken')->plainTextToken;
 
-                Mail::to(Auth::user()->email)->send(new ApiTokenEmail(['token' => $token]));
+                dispatch(new SendApiTokenEmail(Auth::user()->email, $token))->delay(now()->addMinutes(1));
 
                 $data['token'] = $token;
 
