@@ -10,13 +10,14 @@ The API uses Laravel sanctum to authenticate requests, with a basic frontend bui
 
 ## Getting Started
 
-Run:
-
 configure .env
 
-php artisan migrate
+Run:
 
-php artisan db:seed
+- composer install
+- php artisan migrate
+- php artisan db:seed
+- emails in this application make use of jobs & queues, if your wanting to see them in your local mail enviroment, run artisan queue:work or artisan queue:listen (https://laravel.com/docs/10.x/queues#the-queue-work-command)
 
 Once the application is up and running, on the frontend of the application, register as a user. Then generate the API token in the dashboard to gain access to the API routes
 
