@@ -11,7 +11,7 @@ class ApiController extends Controller
     protected $statusCode;
     public $exceptionErrorMessage = 'Something went wrong, Please contact Administrator';
 
-    public function sendResponse($result, $message) : JsonResponse
+    public function sendResponse(array $result, string $message) : JsonResponse
     {
 
         $response = [
@@ -24,7 +24,7 @@ class ApiController extends Controller
         return response()->json($response, $this->statusCode);
     }
 
-    public function sendError($error, $messages = [], $errorCode = 404) : JsonResponse
+    public function sendError(string $error, $messages = [], $errorCode = 404) : JsonResponse
     {
 
         $response = [

@@ -7,13 +7,14 @@ use App\Models\WindFarm;
 use App\Http\Controllers\ApiController as ApiController;
 use Exception;
 use Illuminate\Http\JsonResponse;
+use Illuminate\Pagination\Paginator;
 
 class WindFarmController extends ApiController
 {
     /**
      * Show Windfarm
      */
-    public function show(string $id, WindFarm $windfarm) : JsonResponse
+    public function show(string $id, WindFarm $windfarm): JsonResponse
     {
         try {
 
@@ -30,15 +31,24 @@ class WindFarmController extends ApiController
     /**
      * Get All Windfarms
      */
-    public function index(Windfarm $windfarm) : JsonResponse
+    public function index(Windfarm $windfarm, Request $request): JsonResponse
     {
-        return $this->sendResponse($windfarm::all()->toArray(), '');
+
+        try {
+            if (isset($request->page)) {
+                return $this->sendResponse($windfarm::paginate(10, ['*'], 'page', $request->page)->toArray(), '');
+            } else {
+                return $this->sendResponse($windfarm::paginate(10)->toArray(), '');
+            }
+        } catch (Exception $e) {
+            return $this->sendError($this->exceptionErrorMessage, [$e->getMessage()], 500);
+        }
     }
 
     /**
      * Get Turbines in this windfarm
      */
-    public function getTurbines(string $id, Windfarm $windfarm) : JsonResponse
+    public function getTurbines(string $id, Windfarm $windfarm): JsonResponse
     {
         try {
 
