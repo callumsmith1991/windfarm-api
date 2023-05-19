@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\WindFarm;
 use App\Http\Controllers\ApiController as ApiController;
+use App\Http\Requests\StoreWindfarmRequest;
 use Exception;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Pagination\Paginator;
@@ -58,6 +59,20 @@ class WindFarmController extends ApiController
 
             $turbines = $windfarm::find($id)->turbines()->get()->toArray();
             return $this->sendResponse($turbines, '');
+        } catch (Exception $e) {
+            return $this->sendError($this->exceptionErrorMessage, [$e->getMessage()], 500);
+        }
+    }
+
+    public function store(StoreWindfarmRequest $request, WindFarm $windFarm) : JsonResponse
+    {
+        try {
+
+            $newWindfarm = $windFarm::create([
+                'name' => $request->safe()->name
+            ]);
+
+            return $this->sendResponse($newWindfarm->toArray(), 'Created Windfarm Successfully');
         } catch (Exception $e) {
             return $this->sendError($this->exceptionErrorMessage, [$e->getMessage()], 500);
         }

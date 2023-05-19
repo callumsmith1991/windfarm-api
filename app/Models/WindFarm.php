@@ -13,6 +13,7 @@ class WindFarm extends Model
 
     protected $table = 'wf_farm';
     public $timestamps = false;
+    protected $fillable = ['name'];
 
     public function turbines(): HasMany
     {

@@ -27,6 +27,7 @@ Route::middleware('auth:sanctum')->group(function () {
 
     Route::controller(WindFarmController::class)->group(function () {
         Route::get('windfarm', 'index');
+        Route::post('windfarm', 'store');
         Route::get('windfarm/{id}', 'show');
         Route::get('windfarm/{id}/turbines', 'getTurbines');
     });
